@@ -1,0 +1,36 @@
+<odoo>
+  <data>
+    <!-- Search View -->
+    <record model="ir.ui.view" id="fleet_request_training_search">
+      <field name="name">vehicle.fleet.request.search</field>
+      <field name="model">vehicle.fleet.request</field>
+      <field name="inherit_id" ref="fleet_request_training.employee_fleet_request_search_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//search/group[1]" position="before">
+          <filter name="fl_vehicle_brand_opel" string="Opel" domain="[('vehicle_id.model_id.brand_id','=', 'Opel')]"/>
+          <filter name="fl_vehicle_brand_audi" string="Audi" domain="[('vehicle_id.model_id.brand_id','=', 'Audi')]"/>
+        </xpath>
+        <xpath expr="//search/group[1]" position="inside">
+          <filter name="gr_vehicle_color" string="Vehicle's Color" context="{'group_by':'vehicles_color'}"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="fleet_request_training_inherit_form">
+      <field name="name">vehicle.fleet.request.form</field>
+      <field name="model">vehicle.fleet.request</field>
+      <field name="inherit_id" ref="fleet_request_training.fleet_employee_request_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='employee_id']" position="after">
+          <field name="employees_identification_num"/>
+        </xpath>
+      </field>
+    </record>
+
+    <menuitem id="fleet_request_training.menu_fleet_main" name="Fleet(ESS)" groups="base.group_user" web_icon="fleet_request_training,static/description/icon.png" active="0"/>
+    <menuitem name="Fleet" id="fleet.menu_root" sequence="115" groups="fleet.fleet_group_user" web_icon="fleet_request_training,static/description/icon.png"/>
+    <menuitem id="fleet_request_training.menu_fleet_employee_request" name="Fleet Requests" parent="fleet.menu_root" sequence="2" />
+    
+    
+  </data>
+</odoo>
